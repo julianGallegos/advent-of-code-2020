@@ -15,7 +15,7 @@ class PassWordValidator
   sig { returns(Hash) }
   def parsed_password_requirement
     password_criteria = @password_requirement.split(' ')
-    required_letter = T.must(password_criteria)[1]
+    required_letter_from_input = T.must(password_criteria)[1]
     minimum_and_maximum_occurences =
       T.must(T.must(password_criteria).first).split('-')
 
@@ -23,7 +23,7 @@ class PassWordValidator
       minimum_occurence: minimum_and_maximum_occurences.first.to_i,
       maximum_occurence: minimum_and_maximum_occurences[1].to_i,
       # we need to remove the ':' from the required letter
-      required_letter: required_letter.delete(':'),
+      required_letter: required_letter_from_input.delete(':'),
       entered_password: T.must(password_criteria).last
     }
   end
